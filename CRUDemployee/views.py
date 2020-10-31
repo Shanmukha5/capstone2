@@ -40,7 +40,10 @@ def home(request):
 			return render(request, 'CRUDemployee/result.html',{'result': "Successfully updated!"})
 		elif(btn=='delete'):
 			id = request.POST['id']
-			emp = Employee.objects.get(id=id)
+			try:
+				emp = Employee.objects.get(id=id)
+			except:
+				return render(request, 'CRUDemployee/result.html',{'result':"User doesn't exist"})
 			try:
 				emp.delete()
 			except:
